@@ -25,14 +25,37 @@ router.post('/new/:id',verifiedAuth, async (req, res) => {
     }
 })
 
-router.get('/all/cars', verifiedToken, async (req, res) => {
+router.get('/all', async (req, res) => {
+    const { max, min, ...others } = req.query
     try {
-        const cars= await Vehicle.find()
+        const transports= await Vehicle.find({ ...others,$gt: min | 1, $lt: max || 999 }).limit(req.query.limit)
+        return res.status(200).send(transports)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+
+router.get('/all/:id', verifiedToken, async (req, res) => {
+    try {
+        const cars= await Vehicle.findById(req.params.id)
         res.status(200).send(cars)
     } catch (error) {
         res.status(400).send(error)
     }
 })
+
+router.get('/countbystates', async (req, res) => {
+    const states = req.query.states.split(",")
+    try {
+        const list = await Promise.all(states.map(state => {
+            return Vehicle.countDocuments({state:state})
+        }))   
+        res.status(200).send(list)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+
 
 router.delete('/:vehicleid/:id',verifiedAuth, async (req, res) => {
     

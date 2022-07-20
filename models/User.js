@@ -10,7 +10,8 @@ const userSchema= new mongoose.Schema({
     password: { type: String,required:true},
     email: { type: String, requried: true },
     isAdmin: { type: Boolean, default: false },
-    phoneno: { type: Number, required: true }
+    phoneno: { type: Number, required: true },
+    verified: {type: Boolean, default:false}
 },{timestamps:true
 })
 

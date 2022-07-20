@@ -3,6 +3,20 @@ const Driver = require('../models/Driver')
 const router = require('express').Router()
 const bcrypt = require('bcrypt')    
 const jwt = require('jsonwebtoken')
+const Userverification = require('../models/UserVerification')
+require('dotenv/config')
+const transporter = require('../google')
+
+
+
+transporter.verify((error, sucess) => {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log('ready')
+        console.log(sucess)
+    }
+})
 
 //new user
 

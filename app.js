@@ -11,6 +11,7 @@ const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 const driverRoutes = require('./routes/driver')
 const vehicleRoutes = require('./routes/vehicle')
+const cors = require('cors')
 
 mongoose.connect(process.env.CLONE, () => {
     console.log('mongoose is connected')
@@ -19,7 +20,7 @@ mongoose.connect(process.env.CLONE, () => {
 app.get('/', (req, res) => {
     res.send('welcome')
 })
-
+app.use(cors())
 app.use(morgan('combined'))
 app.use(express.json())
 app.use('/auth', authRoutes)
