@@ -1,11 +1,11 @@
 const router = require('express').Router()
 const mongoose = require('mongoose')
-const { verifiedUser, verifiedAdmin } = require('./verify')
 const bcrypt = require('bcrypt')
 const User = require('../models/User')
+const { verifiedAuth, verifiedAdmin } = require('./verify')
 
 
-router.put('/:id', verifiedUser, async (req, res) => {
+router.put('/:id', verifiedAuth, async (req, res) => {
     if (req.body.password) {
        try {
          const salt = await bcrypt.genSalt(10)
@@ -25,7 +25,7 @@ router.put('/:id', verifiedUser, async (req, res) => {
     }
 })
 
-router.delete('/:id', verifiedUser, async (req, res) => {
+router.delete('/:id', verifiedAuth, async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id)
         res.status(200).send('User has been deleted')

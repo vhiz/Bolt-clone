@@ -1,9 +1,10 @@
 const Driver = require('../models/Driver')
-const { verifiedUser, verifiedToken } = require('./verify')
+const { verifiedAuth, verifiedToken } = require('./verify')
+
 
 const router = require('express').Router()
 
-router.put('/:id', verifiedUser, async (req, res) => {
+router.put('/:id', verifiedAuth, async (req, res) => {
     if (req.body.password) {
        try {
          const salt = await bcrypt.genSalt(10)
@@ -23,7 +24,7 @@ router.put('/:id', verifiedUser, async (req, res) => {
     }
 })
 
-router.delete('/:id', verifiedUser, async (req, res) => {
+router.delete('/:id', verifiedAuth, async (req, res) => {
     try {
         await Driver.findByIdAndDelete(req.params.id)
         res.status(200).send('User has been deleted')

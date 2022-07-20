@@ -10,7 +10,7 @@ const morgan = require('morgan')
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 const driverRoutes = require('./routes/driver')
-
+const vehicleRoutes = require('./routes/vehicle')
 
 mongoose.connect(process.env.CLONE, () => {
     console.log('mongoose is connected')
@@ -25,6 +25,7 @@ app.use(express.json())
 app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 app.use('/driver', driverRoutes)
+app.use('/', vehicleRoutes)
 
 const Port = process.env.PORT || 3000
 

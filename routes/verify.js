@@ -1,40 +1,40 @@
-const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 require('dotenv/config')
 
 const verifiedToken = (req, res, next) => {
-    const authHeaders = req.headers.token
-    if (authHeaders) {
-        const token = authHeaders.split(" ")[1]
+    const authheaders = req.headers.token;
+    if (authheaders) {
+        const token = authheaders
         jwt.verify(token, process.env.TOKEN, (err, verified) => {
-            if (err) return res.status(400).send('Token is not correct')
-            req.user= verified
+            if (err) return res.status(400).send('token is not correct')
+            req.user = verified;
+            next()
         })
     } else {
-        return res.status(400).send('you dont acess')
+        res.status(401).send('you dont have acess to this site')
     }
 }
 
-const verifiedUser = (req, res, next) => {
+
+const verifiedAuth = (req, res, next) => {
     verifiedToken(req, res, () => {
-        if (req.user.id == req.params.id || req.user.isAdmin) {
+        if(req.user.id == req.params.id || req.user.isAdmin) {
             next()
         } else {
-            res.status(400).send('you can only use for your account')
+            res.status(400).send('You can only change your account')
         }
     })
 }
 
 const verifiedAdmin = (req, res, next) => {
     verifiedToken(req, res, () => {
-        if (req.user.id ==  req.user.isAdmin) {
+        if (req.user.isAdmin) {
             next()
         } else {
-            res.status(400).send('Admin use only')
+            res.status(400).send('Only admin can acess this page')
         }
     })
 }
 
 
-
-module.exports= {verifiedAdmin, verifiedUser, verifiedToken}
+module.exports= {verifiedToken, verifiedAuth, verifiedAdmin}
