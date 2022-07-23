@@ -11,7 +11,10 @@ const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 const driverRoutes = require('./routes/driver')
 const vehicleRoutes = require('./routes/vehicle')
+const payRoutes = require('./routes/flutterwave')
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
+const forgotRoutes = require('./routes/forgotpassword')
 
 mongoose.connect(process.env.CLONE, () => {
     console.log('mongoose is connected')
@@ -20,6 +23,8 @@ mongoose.connect(process.env.CLONE, () => {
 app.get('/', (req, res) => {
     res.send('welcome')
 })
+
+app.use(cookieParser())
 app.use(cors())
 app.use(morgan('combined'))
 app.use(express.json())
@@ -27,6 +32,12 @@ app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 app.use('/driver', driverRoutes)
 app.use('/', vehicleRoutes)
+app.use('/', forgotRoutes)
+app.use('/', payRoutes)
+
+
+
+
 
 const Port = process.env.PORT || 3000
 

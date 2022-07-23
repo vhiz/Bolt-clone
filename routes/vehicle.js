@@ -1,15 +1,19 @@
 const Vehicle = require('../models/Vehicle')
 const Driver = require('../models/Driver')
-const { verifiedAuth, verifiedToken} = require('./verify')
+const { verifiedAuth, verifiedToken } = require('./verify')
+const crypto = require('crypto')
 
 
 const router = require('express').Router()
 
 
 router.post('/new/:id',verifiedAuth, async (req, res) => {
-    
+    const{carid, ...others}= req.body
     const driverId = req.params.id
-    const newVehicle = await new Vehicle(req.body)
+    const newVehicle = await new Vehicle({
+        carid: crypto.randomBytes(6).toString('hex'),
+        ...others
+    })
     try {
         const savedcar = await newVehicle.save()
         try {
@@ -24,6 +28,7 @@ router.post('/new/:id',verifiedAuth, async (req, res) => {
         res.status(400).send(error)
     }
 })
+
 
 router.get('/all', async (req, res) => {
     const { max, min, ...others } = req.query

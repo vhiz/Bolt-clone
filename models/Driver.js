@@ -15,7 +15,9 @@ const driverSchema = new mongoose.Schema({
     state: { type: String, required: true },
     accountno: { type: Number, required: true },
     vehicle: { type: [String] },
-    isDriver: { type: Boolean, default: true }
+    isDriver: { type: Boolean, default: true },
+    emailToken: { type: String },
+    verified:{type:Boolean, default:false}
 }, { timestamps: true })
 
 

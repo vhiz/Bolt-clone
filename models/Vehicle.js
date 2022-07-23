@@ -5,7 +5,8 @@ const vehicleSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     description: { type: String, required: true },
     maxPeople: { type: Number, require: true },
-    carnumb: [{number: String, unavailableSeates:{type:[String]}}],
+    seatnumb: [{ seat: Number, unavailableDates: { type: [String] } }],
+    carid:{type: String}
 })
 
 module.exports= mongoose.model('Vehicle', vehicleSchema)
