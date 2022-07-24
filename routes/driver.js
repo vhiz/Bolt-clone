@@ -25,6 +25,9 @@ router.put('/:id', verifiedAuth, async (req, res) => {
 })
 
 router.delete('/:id', verifiedAuth, async (req, res) => {
+     const user = await Driver.findById(req.params.id)
+    const deleteuser = await bcrypt.compare(req.body.password, user.password)
+    if(!deleteuser)return res.status(400).send('Input correct password before deleting your account ')
     try {
         await Driver.findByIdAndDelete(req.params.id)
         res.status(200).send('User has been deleted')
