@@ -1,5 +1,6 @@
 const Driver = require('../models/Driver')
 const { verifiedAuth, verifiedToken } = require('./verify')
+const bcrypt = require('bcrypt')
 
 
 const router = require('express').Router()
