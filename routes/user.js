@@ -19,7 +19,7 @@ router.put('/:id', verifiedAuth, async (req, res) => {
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
             $set:req.body
         })
-        res.status(400).send(updatedUser)
+        res.status(200).send(updatedUser)
     } catch (error) {
         res.status(400).send(error)
     }
