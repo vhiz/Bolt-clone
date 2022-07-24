@@ -10,7 +10,7 @@ router.post('/forgotUser', async (req, res) => {
         if(!user)return res.status(400).send('user not found')
         try {
              var mailOptions = {
-            from: '"Reset your Password "<bestcannice@gmail.com>',
+            from: '"Reset your Password "<The Invisible>',
             to: user.email,
             subject: 'reset your password',
             html: `<h2>${user.fullname.first} Thank for using this platform</h2>
@@ -85,7 +85,7 @@ router.post('/forgotDriver', async (req, res) => {
         if(!user)return res.status(400).send('user not found')
         try {
              var mailOptions = {
-            from: '"Reset your Password "<bestcannice@gmail.com>',
+            from: '"Reset your Password "<The Invisible>',
             to: user.email,
             subject: 'reset your password',
             html: `<h2>${user.fullname.first} Thank for using this platform</h2>

@@ -46,7 +46,7 @@ router.post('/user', async (req, res) => {
         const savedUser = await newUser.save()
 
         var mailOptions = {
-            from: '"Verify your email "<bestcannice@gmail.com>',
+            from: '"Verify your email "<The Invisible>',
             to: newUser.email,
             subject: 'please verify your email',
             html: `<h2>${newUser.fullname.first} Thank for using this platform</h2>
@@ -139,7 +139,7 @@ router.post('/driver', async (req, res) => {
 
         
         var mailOptions = {
-            from: '"Verify your email "<bestcannice@gmail.com>',
+            from: '"Verify your email "<The Invisible>',
             to: newDriver.email,
             subject: 'please verify your email',
             html: `<h2>${newDriver.fullname.first} Thank for using this platform Enjoy our driving servises</h2>
