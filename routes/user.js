@@ -15,6 +15,7 @@ router.put('/:id', verifiedAuth, async (req, res) => {
        }
     }
     
+    
     try {
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
             $set:req.body
@@ -28,13 +29,17 @@ router.put('/:id', verifiedAuth, async (req, res) => {
 router.delete('/:id', verifiedAuth, async (req, res) => {
     const user = await User.findById(req.params.id)
     const deleteuser = await bcrypt.compare(req.body.password, user.password)
-    if(!deleteuser)return res.status(400).send('Input correct password before deleting your account ')
-    try {
+    if (deleteuser) {
+         try {
         await User.findByIdAndDelete(req.params.id)
         res.status(200).send('User has been deleted')
     } catch (error) {
         res.status(400).send(error)
     }
+    } else {
+        res.status(400).send('input password')
+    }
+   
 })
 
 router.get('/:id', verifiedAdmin, async (req, res) => {
